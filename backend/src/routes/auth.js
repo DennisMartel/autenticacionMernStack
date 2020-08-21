@@ -8,16 +8,32 @@ const jwt= require('jsonwebtoken')
 const { JWT_SECRET } = require('../key')
 
 router.post('/register', (req, res) => {
-    const { name, email, password } = req.body
-    if(!name || !email || !password) return res.status(422).json({error: 'todos los campos son requeridos'})
-    User.findOne({ email:email })
-    .then((savedUser) => {
-        if(savedUser) return res.status(422).json({error: 'ya existe un usuario con ese email'})
+    const {name, email, password} = req.body
+    if(!name || !email || !password) {
+        return res.status(422).json({error: "todos los campos son requeridos"})
+    }
+    User.findOne({email:email})
+    .then(savedUser => {
+        if(savedUser) {
+            return res.status(422).json({error: "ya existe un usuario con ese email"})
+        }
         bcrypt.hash(password, 12)
-        const user = new User({ name, email, password })
-        user.save().then((user) => res.json({message: 'registrado correctamente'}))
-                    .catch(err => console.log(err))
-    .catch(err => console.log(err))
+        .then(hashedPassword => {
+            const user = new User({
+                name,
+                email,
+                password: hashedPassword
+            })
+            user.save().then(user => {
+                res.json({message: "usuario registrado correctamente"})
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        })
+    })
+    .catch(err => {
+        console.log(err)
     })
 })
 
