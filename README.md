@@ -7,4 +7,4 @@ npm install
 ```
 
 ## imágenes proyecto
-![login](captura de pantalla (32).png)
+![login](Captura de pantalla (32).png)
