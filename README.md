@@ -5,6 +5,3 @@ sistema de login y registro de usuarios usando jsonwebtoken y las tecnologias de
 ```
 npm install
 ```
-
-## imágenes proyecto
-![login](Capturadepantalla(32).png)
