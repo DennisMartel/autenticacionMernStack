@@ -46,7 +46,7 @@ router.post('/login', (req, res) => {
         bcrypt.compare(password, savedUser.password)
         .then((doMatch) => {
             if(doMatch) {
-                //res.json({message: 'logueado correctamente'})
+                res.json({message: 'logueado correctamente'})
                 const token = jwt.sign({_id:savedUser._id}, JWT_SECRET)
                 res.json({token})
             } else {
